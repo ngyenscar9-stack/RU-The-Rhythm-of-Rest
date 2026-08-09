@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ru — The Rhythm of Rest | voco Scenia Bay Nha Trang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Dark Mode (Default) */
+            --bg: #08090A; --bg-alt: #0E1116; --bg-elevated: #121417;
+            --text: #F5F5F7; --text-muted: #8A949C; --border: #2A2F35;
+            --accent: #4DA6B8; --accent-wash: #241C10;
+            --gold: #C5A059; --gold-light: #E6C68A;
+            --canvas-bg: #1C222A;
+        }
+        [data-theme="light"] {
+            --bg: #F7F5F2; --bg-alt: #FFFFFF; --bg-elevated: #FFFFFF;
+            --text: #1A1C1E; --text-muted: #5E6A70; --border: #D1D5DB;
+            --accent: #0F3B4C; --accent-wash: #FBF0D9;
+            --gold: #B8860B; --gold-light: #DAA520;
+            --canvas-bg: #E0E0E0;
+        }
+        :root { --ease: cubic-bezier(0.16, 1, 0.3, 1); }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg); color: var(--text); font-family: 'Jost', 'Be Vietnam Pro', sans-serif;
+            font-weight: 300; line-height: 1.7; overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', 'Be Vietnam Pro', serif; font-weight: 400; color: var(--text); line-height: 1.1; }
+        p { color: var(--text-muted); }
+
+        /* Header */
+        .header {
+            position: fixed; top: 0; left: 0; width: 100%; padding: 20px clamp(16px, 5vw, 60px);
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            background: var(--bg); border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+        .header.scrolled { border-bottom-color: var(--border); }
+        .brand { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text); text-decoration: none; text-transform: uppercase; }
+        .brand span { color: var(--gold); font-style: italic; }
+        
+        .nav-actions { display: flex; gap: 16px; align-items: center; position: relative; }
+        .btn-icon { background: none; border: 1px solid var(--border); color: var(--text); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
+        .btn-icon:hover { border-color: var(--gold); color: var(--gold); }
+        .btn-icon svg { width: 16px; height: 16px; }
+
+        /* Language Dropdown */
+        .lang-dropdown { position: relative; }
+        .lang-btn { background: none; border: 1px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 30px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.16em; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 6px; font-family: 'Jost', 'Be Vietnam Pro', sans-serif; }
+        .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .lang-menu { position: absolute; top: 110%; right: 0; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 4px; min-width: 80px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 100; }
+        .lang-menu.active { opacity: 1; visibility: visible; transform: translateY(0); }
+        .lang-item { padding: 10px 16px; cursor: pointer; font-size: 0.75rem; color: var(--text-muted); transition: all 0.2s; }
+        .lang-item:hover { background: var(--accent-wash); color: var(--gold); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh; position: relative; display: flex; justify-content: center; align-items: center; text-align: center; padding: 100px 24px 0;
+            background: linear-gradient(rgba(6,7,8,0.35), rgba(6,7,8,0.75)), url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed;
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 900px; }
+        .hero h1 { font-size: clamp(3rem, 10vw, 6.5rem); margin-bottom: 24px; letter-spacing: -0.02em; color: #F5F5F2; }
+        .hero h1 span { font-style: italic; color: var(--gold-light); display: block; font-size: 0.5em; margin-top: 12px; }
+        .hero p { font-size: clamp(1rem, 2vw, 1.2rem); color: #F5F5F2; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; opacity: 0.92; }
+        .hero-cta { background: transparent; color: var(--gold-light); border: 1px solid var(--gold-light); padding: 18px 48px; font-family: 'Jost', 'Be Vietnam Pro', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.25em; cursor: pointer; transition: background 0.7s var(--ease), color 0.7s var(--ease); text-decoration: none; display: inline-block; font-weight: 500; }
+        .hero-cta:hover { background: var(--gold-light); color: #0A0A0A; }
+
+        /* Section Structure */
+        .section { padding: clamp(80px, 12vw, 160px) clamp(16px, 5vw, 60px); background: var(--bg); }
+        .section-alt { background: var(--bg-alt); }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: clamp(2.3rem, 5.5vw, 3.8rem); margin-bottom: 16px; }
+        .section-header h2 span { font-style: italic; color: var(--gold); }
+        .section-header p { max-width: 600px; margin: 0 auto; font-size: 1rem; }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Philosophy Split Section */
+        .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .split-text h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 24px; }
+        .split-text h2 span { font-style: italic; color: var(--gold); }
+        .split-text p { margin-bottom: 24px; font-size: 1rem; line-height: 1.8; }
+        .split-img { height: 600px; background: url('https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1000&auto=format&fit=crop') center/cover no-repeat; border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.2); }
+
+        /* Configurator Layout */
+        .config-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: start; }
+        .visualizer-col { position: sticky; top: 100px; height: calc(100vh - 140px); min-height: 600px; display: flex; flex-direction: column; }
+        .canvas-wrapper { flex-grow: 1; position: relative; border-radius: 6px; overflow: hidden; background: var(--canvas-bg); border: 1px solid var(--border); box-shadow: 0 30px 80px rgba(0,0,0,0.2); transition: background 0.4s ease; }
+        #3d-canvas { width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+        #3d-canvas:active { cursor: grabbing; }
+        .canvas-info { position: absolute; bottom: 24px; left: 24px; background: var(--bg-elevated); color: var(--gold); padding: 8px 16px; border: 1px solid var(--border); border-radius: 30px; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; z-index: 10; opacity: 0.9; }
+        .canvas-info::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
+        .audio-indicator { position: absolute; top: 24px; right: 24px; background: var(--bg-elevated); color: var(--text); padding: 8px 16px; border: 1px solid var(--border); border-radius: 30px; font-size: 0.65rem; display: none; align-items: center; gap: 8px; z-index: 10; opacity: 0.9; }
+        .audio-indicator.active { display: flex; }
+        .audio-indicator::before { content: '♪'; font-size: 0.9rem; color: var(--gold); animation: bounce 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+        /* Form Panel */
+        .form-panel { background: transparent; padding: clamp(8px, 2vw, 16px) 0; }
+        .form-intro h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 16px; }
+        .form-intro h2 span { font-style: italic; color: var(--gold-light); }
+        .form-intro p { font-size: 0.9rem; margin-bottom: 40px; }
+
+        .section-block { margin-bottom: 64px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+        .section-block:last-of-type { border-bottom: none; }
+        .section-header-mini { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; }
+        .section-num { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); font-style: italic; }
+        .section-title-mini { font-size: 1.7rem; }
+
+        /* Step Wizard */
+        .section-block[data-step] { display: none; margin-bottom: 0; padding-bottom: 0; border-bottom: none; min-height: 380px; }
+        .section-block[data-step].step-active { display: block; animation: stepIn 0.6s var(--ease); }
+        @keyframes stepIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .stepper-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 32px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+        .step-btn { background: none; border: none; color: var(--text); font-family: 'Jost', 'Be Vietnam Pro', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.18em; cursor: pointer; padding: 8px 4px; transition: color 0.5s var(--ease), opacity 0.5s var(--ease); }
+        .step-btn:hover { color: var(--gold); }
+        .step-btn:disabled { opacity: 0.25; cursor: default; pointer-events: none; }
+        .step-dots { display: flex; gap: 10px; align-items: center; }
+        .step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background-color 0.5s var(--ease), transform 0.5s var(--ease); }
+        .step-dot:hover { background-color: var(--gold-light); }
+        .step-dot.done { background-color: var(--gold-light); }
+        .step-dot.active { background-color: var(--gold); transform: scale(1.6); }
+
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; grid-auto-flow: dense; }
+        .opt-card { border: none; border-bottom: 1px solid var(--border); padding: 28px; cursor: pointer; background-color: transparent; transition: background-color 0.7s var(--ease), border-color 0.7s var(--ease), transform 0.7s var(--ease), filter 0.7s var(--ease); position: relative; overflow: hidden; }
+        .opt-card:hover { background-color: var(--bg-alt); transform: scale(1.01); filter: brightness(1.08); }
+        .opt-card.selected { border: 2px solid var(--gold); background-color: var(--accent-wash); }
+        .opt-card.selected .opt-title { color: var(--gold); }
+        .opt-card.featured { grid-column: span 2; padding: 40px; background-size: cover; background-position: center; color: #F5F5F7; }
+        .opt-card.featured::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,8,6,0.75), rgba(10,8,6,0.35)); }
+        .opt-card.featured > * { position: relative; z-index: 1; }
+        .opt-card.featured .opt-title { font-size: 1.7rem; color: #F5F5F7; }
+        .opt-card.featured .opt-desc { color: rgba(245,245,247,0.8); }
+        .opt-card.featured.selected { border-color: var(--gold); }
+        .opt-card.featured.selected .opt-title { color: var(--gold-light); }
+        .opt-card[data-val="Trầm Hương"] { background-image: radial-gradient(ellipse at 30% 20%, #6b4326 0%, #3a2415 45%, #1a1008 100%); }
+        .opt-card[data-val="Sunrise light"] { background-image: url('https://images.unsplash.com/photo-1500534623283-312aade485b7?q=80&w=800&auto=format&fit=crop'); }
+        .opt-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 2px; display: flex; align-items: center; color: var(--text); transition: color 0.7s var(--ease); }
+        .opt-vn { font-size: 0.65rem; color: var(--text-muted); font-style: italic; margin-bottom: 6px; display: block; text-transform: lowercase; }
+        .opt-desc { font-size: 0.7rem; color: var(--text-muted); line-height: 1.5; }
+        .badge-premium { font-size: 0.45rem; text-transform: uppercase; letter-spacing: 0.15em; background: var(--gold); color: #000; padding: 2px 5px; border-radius: 2px; margin-left: 6px; vertical-align: middle; font-family: 'Jost', 'Be Vietnam Pro', sans-serif; font-weight: 600; }
+
+        .fragrance-story { margin-top: 16px; padding: 20px; background: var(--accent-wash); border-left: 2px solid var(--gold); border-radius: 0 4px 4px 0; display: none; animation: slideIn 0.8s var(--ease); }
+        .fragrance-story.active { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .story-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--gold-light); margin-bottom: 8px; }
+
+        .slider-container { margin-top: 20px; }
+        .slider-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .slider-label span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-muted); }
+        .slider-val { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--text); font-weight: 500; }
+        input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--border); outline: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); cursor: pointer; border: 3px solid var(--bg); box-shadow: 0 0 10px rgba(197, 160, 89, 0.5); }
+        input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--gold); cursor: pointer; border: 3px solid var(--bg); }
+
+        .summary-box { margin-top: 32px; text-align: center; }
+        .summary-progress { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 8px; }
+        .summary-title { font-size: 1.6rem; margin-bottom: 20px; }
+        .cta-btn { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 18px 40px; width: 100%; font-family: 'Jost', 'Be Vietnam Pro', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.25em; font-weight: 500; cursor: pointer; transition: background 0.7s var(--ease), color 0.7s var(--ease), border-color 0.7s var(--ease); }
+        .cta-btn:hover { background: var(--gold); color: #0A0A0A; }
+        .cta-btn:disabled { background: transparent; border-color: var(--border); color: var(--text-muted); cursor: not-allowed; }
+
+        .morning-feedback { display: none; margin-top: 24px; padding: 24px; background: var(--accent-wash); border: 1px solid var(--border); border-radius: 4px; }
+        .morning-feedback.active { display: block; animation: slideIn 0.8s ease; }
+        .stars { display: flex; gap: 10px; justify-content: center; margin: 12px 0; }
+        .star { background: none; border: none; cursor: pointer; font-size: 1.8rem; color: var(--border); transition: transform 0.2s, color 0.2s; }
+        .star:hover { transform: scale(1.2); }
+        .star.lit { color: var(--gold); }
+
+        /* Amenities Grid */
+        .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 48px 40px; }
+        .amenity-card { background: transparent; padding: 32px 0 0; border: none; border-top: 1px solid var(--border); transition: border-color 0.7s var(--ease), transform 0.7s var(--ease); }
+        .amenity-card:hover { border-top-color: var(--gold); transform: translateY(-3px); }
+        .amenity-icon { width: 40px; height: 40px; margin-bottom: 20px; color: var(--gold); }
+        .amenity-card h3 { font-size: 1.4rem; margin-bottom: 12px; }
+        .amenity-card p { font-size: 0.85rem; line-height: 1.6; }
+
+        /* Footer */
+        .footer { padding: 80px 24px 40px; background: var(--bg-alt); border-top: 1px solid var(--border); }
+        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer-brand h2 { font-size: 2rem; margin-bottom: 16px; }
+        .footer-brand h2 span { color: var(--gold); font-style: italic; }
+        .footer-col h4 { font-size: 1rem; margin-bottom: 16px; color: var(--text); font-family: 'Jost', 'Be Vietnam Pro', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-weight: 500; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 8px; }
+        .footer-col a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+        .footer-col a:hover { color: var(--gold); }
+        .footer-bottom { max-width: 1400px; margin: 0 auto; text-align: center; padding-top: 30px; border-top: 1px solid var(--border); }
+        .footer-bottom p { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .split-layout, .config-grid { grid-template-columns: 1fr; gap: 40px; }
+            .visualizer-col { position: relative; top: 0; height: 60vh; min-height: 450px; }
+            .hero { background-attachment: scroll; }
+            .split-img { height: 400px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .form-panel { padding: 20px; }
+            .header { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header" id="header">
+        <a href="#" class="brand">voco <span>Scenia Bay</span></a>
+        <div class="nav-actions">
+            <div class="lang-dropdown">
+                <button class="lang-btn" id="langBtn">
+                    <span id="currentLang">ENG</span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="lang-menu" id="langMenu">
+                    <div class="lang-item" data-lang="en">English</div>
+                    <div class="lang-item" data-lang="vi">Tiếng Việt</div>
+                </div>
+            </div>
+            <button class="btn-icon" id="themeBtn" aria-label="Toggle theme">
+                <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-i18n="hero_title">Ru.<span data-i18n="hero_sub">The Rhythm of Rest</span></h1>
+            <p data-i18n="hero_desc">Before you arrive, craft your personal sleep sanctuary. From the firmness of your pillow to the scent of the coast, we prepare your room around the way you rest.</p>
+            <a href="#configurator" class="hero-cta" data-i18n="hero_cta">Craft Your Sanctuary</a>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="section section-alt">
+        <div class="container split-layout">
+            <div class="split-text reveal">
+                <h2 data-i18n="phi_title">The Art of <span>Hospitality</span></h2>
+                <p data-i18n="phi_p1">At voco Scenia Bay, we believe that true luxury is personal. The "Ru" experience is born from a simple desire: to lull our guests into the deepest, most restorative sleep of their lives.</p>
+                <p data-i18n="phi_p2">Every detail, from the thread count of your sheets to the frequency of your ambient sound, is calibrated to your unique rhythm. Before you even step through our doors, your sanctuary is already taking shape.</p>
+            </div>
+            <div class="split-img reveal"></div>
+        </div>
+    </section>
+
+    <!-- Configurator Section -->
+    <section class="section" id="configurator">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 data-i18n="conf_title">Tailor Your <span>Sanctuary</span></h2>
+                <p data-i18n="conf_desc">The 3D room beside you updates in real-time. Drag to rotate and explore your preferences before you even step through the door.</p>
+            </div>
+            
+            <div class="config-grid">
+                <!-- 3D Visualizer Column -->
+                <div class="visualizer-col reveal">
+                    <div class="canvas-wrapper">
+                        <canvas id="3d-canvas"></canvas>
+                        <div class="canvas-info" data-i18n="canvas_info">Live 3D Room Preview</div>
+                        <div class="audio-indicator" id="audioIndicator" data-i18n="audio_ind">Ambient Sound Playing</div>
+                    </div>
+                </div>
+
+                <!-- Form Panel -->
+                <div class="form-panel reveal">
+                    <div class="section-block" data-step="1">
+                        <div class="section-header-mini"><span class="section-num">01</span><h3 class="section-title-mini" data-i18n="sec1_title">Pillow & Comfort</h3></div>
+                        <div class="options-grid" data-group="pillow">
+                            <div class="opt-card" data-val="Soft down">
+                                <div class="opt-title" data-i18n="p_soft_t">Soft Down</div>
+                                <span class="opt-vn" data-i18n="p_soft_v">Plush</span>
+                                <p class="opt-desc" data-i18n="p_soft_d">European goose down that yields gently.</p>
+                            </div>
+                            <div class="opt-card selected" data-val="Firm support">
+                                <div class="opt-title" data-i18n="p_firm_t">Firm Support</div>
+                                <span class="opt-vn" data-i18n="p_firm_v">Orthopedic</span>
+                                <p class="opt-desc" data-i18n="p_firm_d">Density-rich core for alignment.</p>
+                            </div>
+                            <div class="opt-card" data-val="Neck contour">
+                                <div class="opt-title" data-i18n="p_neck_t">Neck Contour</div>
+                                <span class="opt-vn" data-i18n="p_neck_v">Ergonomic</span>
+                                <p class="opt-desc" data-i18n="p_neck_d">Memory foam shaped to relieve tension.</p>
+                            </div>
+                            <div class="opt-card" data-val="Cooling gel">
+                                <div class="opt-title" data-i18n="p_cool_t">Cooling Gel</div>
+                                <span class="opt-vn" data-i18n="p_cool_v">Refreshing</span>
+                                <p class="opt-desc" data-i18n="p_cool_d">Infused cooling technology for warm nights.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-block" data-step="2">
+                        <div class="section-header-mini"><span class="section-num">02</span><h3 class="section-title-mini" data-i18n="sec2_title">Aromatherapy & Scent</h3></div>
+                        <div class="options-grid" data-group="scent">
+                            <div class="opt-card featured" data-val="Trầm Hương" data-color="0x8B4513">
+                                <div class="opt-title" data-i18n="s_agar_t">Agarwood <span class="badge-premium" data-i18n="s_agar_v">Suite</span></div>
+                                <span class="opt-vn">&nbsp;</span>
+                                <p class="opt-desc" data-i18n="s_agar_d">Warm, deep, and meditative.</p>
+                            </div>
+                            <div class="opt-card" data-val="Hòn Chống Breeze" data-color="0x48CAE4">
+                                <div class="opt-title" data-i18n="s_ocean_t">Ocean Mist</div>
+                                <span class="opt-vn" data-i18n="s_ocean_v">Coastal</span>
+                                <p class="opt-desc" data-i18n="s_ocean_d">Salt, stone, and coastal pine.</p>
+                            </div>
+                            <div class="opt-card" data-val="Tháp Trầm Amber" data-color="0xD69E2E">
+                                <div class="opt-title" data-i18n="s_amber_t">Spice & Amber</div>
+                                <span class="opt-vn" data-i18n="s_amber_v">Heritage</span>
+                                <p class="opt-desc" data-i18n="s_amber_d">Resin, amber, and old wood.</p>
+                            </div>
+                            <div class="opt-card selected" data-val="No fragrance" data-color="0xffffff">
+                                <div class="opt-title" data-i18n="s_none_t">Unscented</div>
+                                <span class="opt-vn" data-i18n="s_none_v">Pure</span>
+                                <p class="opt-desc" data-i18n="s_none_d">The room kept pure and clear.</p>
+                            </div>
+                        </div>
+                        <div class="fragrance-story" id="story-box">
+                            <h4 class="story-title" id="story-title"></h4>
+                            <p id="story-text" style="font-size: 0.8rem; line-height: 1.6;"></p>
+                        </div>
+                    </div>
+
+                    <div class="section-block" data-step="3">
+                        <div class="section-header-mini"><span class="section-num">03</span><h3 class="section-title-mini" data-i18n="sec3_title">Atmosphere & Temperature</h3></div>
+                        <div class="options-grid" data-group="sound">
+                            <div class="opt-card selected" data-val="Silence">
+                                <div class="opt-title" data-i18n="snd_sil_t">Stillness</div>
+                                <p class="opt-desc" data-i18n="snd_sil_d">Perfect, uninterrupted quiet.</p>
+                            </div>
+                            <div class="opt-card" data-val="The bay">
+                                <div class="opt-title" data-i18n="snd_bay_t">Rhythm of the Bay</div>
+                                <p class="opt-desc" data-i18n="snd_bay_d">Gentle waves recorded at Hon Chong.</p>
+                            </div>
+                            <div class="opt-card" data-val="White noise">
+                                <div class="opt-title" data-i18n="snd_white_t">White Noise</div>
+                                <p class="opt-desc" data-i18n="snd_white_d">A soft floor of sound.</p>
+                            </div>
+                            <div class="opt-card" data-val="Rain">
+                                <div class="opt-title" data-i18n="snd_rain_t">Night Rain</div>
+                                <p class="opt-desc" data-i18n="snd_rain_d">Steady tropical rain.</p>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <div class="slider-label">
+                                <span data-i18n="temp_label">Room Temperature</span>
+                                <span class="slider-val"><span id="tempval">21</span>°C</span>
+                            </div>
+                            <input type="range" id="temp" min="16" max="26" value="21" step="1">
+                        </div>
+                    </div>
+
+                    <div class="section-block" data-step="4">
+                        <div class="section-header-mini"><span class="section-num">04</span><h3 class="section-title-mini" data-i18n="sec4_title">Light & Morning</h3></div>
+                        <div class="options-grid" data-group="light">
+                            <div class="opt-card" data-val="Full blackout">
+                                <div class="opt-title" data-i18n="l_black_t">Full Blackout</div>
+                                <p class="opt-desc" data-i18n="l_black_d">Total darkness. The world falls away.</p>
+                            </div>
+                            <div class="opt-card selected" data-val="A little light">
+                                <div class="opt-title" data-i18n="l_little_t">A Little Sky</div>
+                                <p class="opt-desc" data-i18n="l_little_d">Curtains parted to the moonlight.</p>
+                            </div>
+                            <div class="opt-card featured" data-val="Sunrise light">
+                                <div class="opt-title" data-i18n="l_sun_t">Wake with Sunrise</div>
+                                <p class="opt-desc" data-i18n="l_sun_d">Lamp simulates dawn 20 mins before wake.</p>
+                            </div>
+                            <div class="opt-card" data-val="Alarm only">
+                                <div class="opt-title" data-i18n="l_alarm_t">Alarm Only</div>
+                                <p class="opt-desc" data-i18n="l_alarm_d">Gentle audio alarm, lights stay off.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stepper-nav">
+                        <button class="step-btn step-back" id="stepBack" data-i18n="step_back">Back</button>
+                        <div class="step-dots" id="stepDots">
+                            <span class="step-dot" data-step="1"></span>
+                            <span class="step-dot" data-step="2"></span>
+                            <span class="step-dot" data-step="3"></span>
+                            <span class="step-dot" data-step="4"></span>
+                        </div>
+                        <button class="step-btn step-next" id="stepNext" data-i18n="step_next">Next</button>
+                    </div>
+
+                    <div class="summary-box">
+                        <div class="summary-progress" id="progress">2 <span data-i18n="sum_prog">of 4 chosen</span></div>
+                        <h3 class="summary-title" data-i18n="sum_title">Your Sanctuary Awaits</h3>
+                        <button class="cta-btn" id="send" disabled data-i18n="cta_btn">Prepare My Ru</button>
+                        <div class="morning-feedback" id="morning">
+                            <h3 style="font-family: 'Cormorant Garamond'; font-size: 1.3rem; color: var(--gold-light);" data-i18n="morn_title">Good morning. How did you sleep?</h3>
+                            <div class="stars" id="stars">
+                                <button class="star" data-n="1">★</button><button class="star" data-n="2">★</button>
+                                <button class="star" data-n="3">★</button><button class="star" data-n="4">★</button>
+                                <button class="star" data-n="5">★</button>
+                            </div>
+                            <p style="font-size: 0.8rem;" id="reply" data-i18n="morn_reply">We will save your preferences for your next stay.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 data-i18n="amen_title">Beyond <span>the Room</span></h2>
+                <p data-i18n="amen_desc">Discover the curated experiences that await you at voco Scenia Bay.</p>
+            </div>
+            <div class="amenities-grid">
+                <div class="amenity-card reveal">
+                    <svg class="amenity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                    <h3 data-i18n="amen_1_t">Contactless Sensors</h3>
+                    <p data-i18n="amen_1_d">Premium rooms feature under-mattress monitors for heart rate and breathing, ensuring your sleep is deeply understood.</p>
+                </div>
+                <div class="amenity-card reveal">
+                    <svg class="amenity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    <h3 data-i18n="amen_2_t">Smart Mattress Topper</h3>
+                    <p data-i18n="amen_2_d">Adjustable firmness per side. Your partner's sleep is just as personalized as yours.</p>
+                </div>
+                <div class="amenity-card reveal">
+                    <svg class="amenity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                    <h3 data-i18n="amen_3_t">Wake-Up Light</h3>
+                    <p data-i18n="amen_3_d">A simulated sunrise that gradually fills your room, easing you into the morning naturally.</p>
+                </div>
+                <div class="amenity-card reveal">
+                    <svg class="amenity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20"></path><path d="M5 12V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"></path><path d="M5 12v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path></svg>
+                    <h3 data-i18n="amen_4_t">Sleep Tea Ritual</h3>
+                    <p data-i18n="amen_4_d">Lotus heart tea or chamomile, served bedside as night falls to complete your evening ritual.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h2>voco <span>Scenia Bay</span></h2>
+                <p data-i18n="foot_about">A new luxury standard in Nha Trang, where the rhythm of the bay meets the art of personalized rest.</p>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="foot_explore">Explore</h4>
+                <ul>
+                    <li><a href="#" data-i18n="nav_ru">The Ru Experience</a></li>
+                    <li><a href="#" data-i18n="nav_rooms">Rooms & Suites</a></li>
+                    <li><a href="#" data-i18n="nav_dining">Dining</a></li>
+                    <li><a href="#" data-i18n="nav_spa">Spa & Wellness</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="foot_contact">Contact</h4>
+                <ul>
+                    <li><a href="#">42 Tran Phu, Nha Trang</a></li>
+                    <li><a href="#">+84 258 123 456</a></li>
+                    <li><a href="#">reservations@voco.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 voco Hotels. IHG. All rights reserved. A student prototype for hospitality innovation.</p>
+        </div>
+    </footer>
+
+    <!-- Modern Three.js Module Setup -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // --- State Management ---
+        var state = {
+            pillow: "Firm support",
+            scent: "No fragrance",
+            sound: "Silence",
+            temp: 21,
+            light: "A little light"
+        };
+        let currentLang = "en";
+
+        // --- Translation Dictionary ---
+        const i18n = {
+            en: {
+                nav_ru: "The Ru Experience", nav_rooms: "Rooms & Suites", nav_dining: "Dining", nav_spa: "Spa & Wellness",
+                foot_about: "A new luxury standard in Nha Trang, where the rhythm of the bay meets the art of personalized rest.",
+                foot_explore: "Explore", foot_contact: "Contact",
+                
+                hero_title: "Ru.", hero_sub: "The Rhythm of Rest",
+                hero_desc: "Before you arrive, craft your personal sleep sanctuary. From the firmness of your pillow to the scent of the coast, we prepare your room around the way you rest.",
+                hero_cta: "Craft Your Sanctuary",
+                
+                phi_title: "The Art of <span>Hospitality</span>",
+                phi_p1: "At voco Scenia Bay, we believe that true luxury is personal. The \"Ru\" experience is born from a simple desire: to lull our guests into the deepest, most restorative sleep of their lives.",
+                phi_p2: "Every detail, from the thread count of your sheets to the frequency of your ambient sound, is calibrated to your unique rhythm. Before you even step through our doors, your sanctuary is already taking shape.",
+                
+                conf_title: "Tailor Your <span>Sanctuary</span>",
+                conf_desc: "The 3D room beside you updates in real-time. Drag to rotate and explore your preferences before you even step through the door.",
+                
+                sec1_title: "Pillow & Comfort",
+                p_soft_t: "Soft Down", p_soft_v: "Plush", p_soft_d: "European goose down that yields gently.",
+                p_firm_t: "Firm Support", p_firm_v: "Orthopedic", p_firm_d: "Density-rich core for alignment.",
+                p_neck_t: "Neck Contour", p_neck_v: "Ergonomic", p_neck_d: "Memory foam shaped to relieve tension.",
+                p_cool_t: "Cooling Gel", p_cool_v: "Refreshing", p_cool_d: "Infused cooling technology for warm nights.",
+                
+                sec2_title: "Aromatherapy & Scent",
+                s_agar_t: "Agarwood", s_agar_v: "Suite", s_agar_d: "Warm, deep, and meditative.",
+                s_ocean_t: "Ocean Mist", s_ocean_v: "Coastal", s_ocean_d: "Salt, stone, and coastal pine.",
+                s_amber_t: "Spice & Amber", s_amber_v: "Heritage", s_amber_d: "Resin, amber, and old wood.",
+                s_none_t: "Unscented", s_none_v: "Pure", s_none_d: "The room kept pure and clear.",
+                
+                sec3_title: "Atmosphere & Temperature",
+                snd_sil_t: "Stillness", snd_sil_d: "Perfect, uninterrupted quiet.",
+                snd_bay_t: "Rhythm of the Bay", snd_bay_d: "Gentle waves recorded at Hon Chong.",
+                snd_white_t: "White Noise", snd_white_d: "A soft floor of sound.",
+                snd_rain_t: "Night Rain", snd_rain_d: "Steady tropical rain.",
+                temp_label: "Room Temperature",
+                
+                sec4_title: "Light & Morning",
+                l_black_t: "Full Blackout", l_black_d: "Total darkness. The world falls away.",
+                l_little_t: "A Little Sky", l_little_d: "Curtains parted to the moonlight.",
+                l_sun_t: "Wake with Sunrise", l_sun_d: "Lamp simulates dawn 20 mins before wake.",
+                l_alarm_t: "Alarm Only", l_alarm_d: "Gentle audio alarm, lights stay off.",
+                
+                sum_prog: "of 4 chosen",
+                sum_title: "Your Sanctuary Awaits",
+                cta_btn: "Prepare My Ru",
+                morn_title: "Good morning. How did you sleep?",
+                morn_reply: "We will save your preferences for your next stay.",
+                morn_reply_high: "Wonderful. We have saved your profile for your return.",
+                morn_reply_low: "We apologize. Our host will contact you immediately.",
+                
+                story_agar_t: "The Soul of Khanh Hoa", 
+                story_agar_d: "Trầm Hương (Agarwood) is the heritage of the region. For generations, the deep, resinous scent has been used in meditation and prayer.",
+                story_ocean_t: "The Legend of Hon Chong", 
+                story_ocean_d: "Inspired by the giant handprint on the rocks at Hon Chong. This blend captures the mineral scent of wet stone and the salt of the East Sea.",
+                story_amber_t: "The Scent of the Tower", 
+                story_amber_d: "An homage to Thap Tram Huong in the heart of Nha Trang. Warm amber and spice evoke the bustling trade history of the city.",
+                story_none_t: "The Pure Coast", 
+                story_none_d: "For those who prefer the natural air. We ensure the room is deeply ventilated with the fresh, unadulterated breeze of the bay.",
+                
+                canvas_info: "Live 3D Room Preview",
+                audio_ind: "Ambient Sound Playing",
+                step_back: "Back", step_next: "Next",
+
+                amen_title: "Beyond <span>the Room</span>",
+                amen_desc: "Discover the curated experiences that await you at voco Scenia Bay.",
+                amen_1_t: "Contactless Sensors", amen_1_d: "Premium rooms feature under-mattress monitors for heart rate and breathing, ensuring your sleep is deeply understood.",
+                amen_2_t: "Smart Mattress Topper", amen_2_d: "Adjustable firmness per side. Your partner's sleep is just as personalized as yours.",
+                amen_3_t: "Wake-Up Light", amen_3_d: "A simulated sunrise that gradually fills your room, easing you into the morning naturally.",
+                amen_4_t: "Sleep Tea Ritual", amen_4_d: "Lotus heart tea or chamomile, served bedside as night falls to complete your evening ritual."
+            },
+            vi: {
+                nav_ru: "Trải Nghiệm Ru", nav_rooms: "Phòng & Suite", nav_dining: "Ẩm Thực", nav_spa: "Spa & Trị Liệu",
+                foot_about: "Chuẩn mực nghỉ dưỡng đẳng cấp mới giữa lòng Nha Trang, nơi nhịp sóng của vịnh biển hòa cùng nghệ thuật an giấc riêng cho từng vị khách.",
+                foot_explore: "Khám Phá", foot_contact: "Liên Hệ",
+
+                hero_title: "Ru.", hero_sub: "Nhịp Điệu An Giấc",
+                hero_desc: "Trước khi bạn đến, hãy cùng chúng tôi kiến tạo không gian nghỉ ngơi riêng của bạn. Từ độ êm của chiếc gối đến hương thơm mang hơi biển, căn phòng sẽ được chuẩn bị đúng theo cách bạn muốn nghỉ ngơi.",
+                hero_cta: "Kiến Tạo Không Gian Của Bạn",
+
+                phi_title: "Nghệ Thuật <span>Hiếu Khách</span>",
+                phi_p1: "Tại voco Scenia Bay, chúng tôi tin rằng sự xa xỉ đích thực luôn mang dấu ấn cá nhân. Trải nghiệm “Ru” bắt nguồn từ một mong muốn giản đơn: đưa mỗi vị khách vào giấc ngủ sâu và trọn vẹn nhất trong đời.",
+                phi_p2: "Mọi chi tiết, từ chất liệu vải trải giường đến tần số âm thanh xung quanh, đều được tinh chỉnh theo nhịp sống riêng của bạn. Ngay từ khi chưa bước qua cửa phòng, không gian nghỉ ngơi của bạn đã bắt đầu được kiến tạo.",
+
+                conf_title: "Kiến Tạo <span>Không Gian Riêng</span>",
+                conf_desc: "Căn phòng 3D bên cạnh sẽ thay đổi theo thời gian thực. Hãy kéo để xoay và khám phá không gian nghỉ ngơi của bạn, ngay trước khi bước qua cửa phòng.",
+
+                sec1_title: "Gối & Sự Thoải Mái",
+                p_soft_t: "Êm Mềm", p_soft_v: "Lông Vũ", p_soft_d: "Lông vũ ngỗng châu Âu, mềm mại và êm ái.",
+                p_firm_t: "Nâng Đỡ Vững Chãi", p_firm_v: "Chuẩn Nâng Đỡ", p_firm_d: "Lõi gối có độ đàn hồi cao, giữ thẳng cột sống cổ.",
+                p_neck_t: "Hỗ Trợ Cổ", p_neck_v: "Công Thái Học", p_neck_d: "Bọt memory foam định hình theo đường cổ, giảm căng mỏi.",
+                p_cool_t: "Gel Mát", p_cool_v: "Mát Mẻ", p_cool_d: "Công nghệ làm mát tích hợp, lý tưởng cho những đêm oi ả.",
+
+                sec2_title: "Hương Thơm & Trị Liệu",
+                s_agar_t: "Trầm Hương", s_agar_v: "Suite", s_agar_d: "Ấm áp, sâu lắng và tĩnh tâm.",
+                s_ocean_t: "Sương Biển", s_ocean_v: "Ven Bờ", s_ocean_d: "Vị muối, đá biển và hương thông ven bờ.",
+                s_amber_t: "Gia Vị & Hổ Phách", s_amber_v: "Di Sản", s_amber_d: "Nhựa thơm, hổ phách ấm và hương gỗ cổ.",
+                s_none_t: "Không Mùi", s_none_v: "Tinh Khiết", s_none_d: "Không gian được giữ nguyên bản, trong lành và thanh khiết.",
+
+                sec3_title: "Bầu Không Khí & Nhiệt Độ",
+                snd_sil_t: "Tĩnh Lặng", snd_sil_d: "Sự tĩnh lặng tuyệt đối, không một tiếng động.",
+                snd_bay_t: "Nhịp Vịnh Biển", snd_bay_d: "Tiếng sóng êm ghi âm tại Hòn Chồng.",
+                snd_white_t: "Tạp Âm Trắng", snd_white_d: "Một lớp âm thanh đều và dịu nhẹ.",
+                snd_rain_t: "Mưa Đêm", snd_rain_d: "Tiếng mưa nhiệt đới rơi đều, miên man suốt đêm.",
+                temp_label: "Nhiệt Độ Phòng",
+
+                sec4_title: "Ánh Sáng & Buổi Sáng",
+                l_black_t: "Tối Tuyệt Đối", l_black_d: "Bóng tối tuyệt đối, để mọi ưu tư ngoài kia lùi lại phía sau.",
+                l_little_t: "Một Chút Trời", l_little_d: "Rèm cửa hé mở, đón ánh trăng dịu nhẹ len vào phòng.",
+                l_sun_t: "Thức Cùng Bình Minh", l_sun_d: "Đèn mô phỏng ánh bình minh, dịu dàng đánh thức bạn trước giờ hẹn 20 phút.",
+                l_alarm_t: "Chỉ Báo Thức", l_alarm_d: "Chuông báo thức êm dịu, ánh đèn vẫn tắt.",
+
+                sum_prog: "/ 4 đã hoàn tất",
+                sum_title: "Không Gian Nghỉ Ngơi Đang Chờ Đón Bạn",
+                cta_btn: "Chuẩn Bị Ru Của Tôi",
+                morn_title: "Chào buổi sáng. Đêm qua bạn ngủ có ngon không?",
+                morn_reply: "Chúng tôi sẽ lưu lại sở thích của bạn cho lần lưu trú tiếp theo.",
+                morn_reply_high: "Tuyệt vời! Hồ sơ của bạn đã được lưu lại cho lần trở lại sau.",
+                morn_reply_low: "Chúng tôi thành thật xin lỗi. Nhân viên của chúng tôi sẽ liên hệ với bạn ngay.",
+
+                story_agar_t: "Linh Hồn Khánh Hòa",
+                story_agar_d: "Trầm Hương là báu vật của vùng đất này. Qua bao thế hệ, hương trầm sâu lắng ấy đã gắn liền với thiền định và những lời cầu nguyện.",
+                story_ocean_t: "Huyền Thoại Hòn Chồng",
+                story_ocean_d: "Lấy cảm hứng từ dấu tay khổng lồ in trên đá Hòn Chồng, hương thơm này gói ghém vị khoáng của đá ẩm và hơi mặn của biển Đông.",
+                story_amber_t: "Hương Tháp Trầm",
+                story_amber_d: "Lấy cảm hứng từ Tháp Trầm Hương giữa lòng Nha Trang, hương hổ phách ấm nồng cùng gia vị gợi nhắc một thời giao thương sôi động của phố biển.",
+                story_none_t: "Bờ Biển Thanh Khiết",
+                story_none_d: "Dành cho những ai yêu thích hơi thở tự nhiên, căn phòng luôn được lưu thông bằng làn gió biển trong lành, tinh khôi.",
+
+                canvas_info: "Xem Trước Phòng 3D",
+                audio_ind: "Đang Phát Âm Thanh",
+                step_back: "Quay Lại", step_next: "Tiếp Theo",
+
+                amen_title: "Xa Hơn <span>Căn Phòng Nghỉ</span>",
+                amen_desc: "Khám phá những trải nghiệm được chọn lọc tinh tế, đang chờ đón bạn tại voco Scenia Bay.",
+                amen_1_t: "Cảm Biến Không Tiếp Xúc", amen_1_d: "Các phòng cao cấp được trang bị cảm biến đặt dưới nệm, theo dõi nhịp tim và hơi thở để thấu hiểu giấc ngủ của bạn một cách sâu sắc nhất.",
+                amen_2_t: "Tấm Đệm Thông Minh", amen_2_d: "Có thể điều chỉnh độ cứng riêng cho mỗi bên. Người nằm cạnh bạn cũng được cá nhân hóa giấc ngủ y như bạn.",
+                amen_3_t: "Đèn Thức Giấc", amen_3_d: "Ánh bình minh mô phỏng dần lan tỏa khắp phòng, nhẹ nhàng đưa bạn vào buổi sáng một cách tự nhiên.",
+                amen_4_t: "Nghi Thức Trà Ngủ", amen_4_d: "Trà tâm sen hoặc hoa cúc được phục vụ ngay tại đầu giường khi màn đêm buông xuống, khép lại một buổi tối trọn vẹn."
+            }
+        };
+
+        // --- Audio Management ---
+        const audioFiles = {
+            "The bay": "rhythm_of_the_bay.mp3",
+            "White noise": "white_noise.mp3",
+            "Rain": "night_rain.mp3"
+        };
+        let currentAudio = new Audio();
+        let audioIndicator = document.getElementById('audioIndicator');
+
+        function playSound(option) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            if (audioFiles[option]) {
+                currentAudio.src = audioFiles[option];
+                currentAudio.loop = true;
+                currentAudio.play().catch(e => console.log("Autoplay blocked or file missing:", e));
+                audioIndicator.classList.add('active');
+            } else {
+                audioIndicator.classList.remove('active');
+            }
+        }
+
+        // --- Three.js Scene Setup ---
+        let scene, camera, renderer, controls;
+        let roomGroup, bedGroup, pillowGroup, lampGroup, clockGroup;
+        let scentParticles, scentMaterial;
+        let ambientLight, windowLight, fillLight, lampLight, windowPlane;
+        let floorMat, wallMat, baseMat, mattressMat, duvetMat;
+
+        init3D();
+        animate3D();
+
+        function init3D() {
+            const container = document.querySelector('.canvas-wrapper');
+            
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1C222A);
+            scene.fog = new THREE.Fog(0x1C222A, 25, 50);
+
+            camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(5, 3.5, 7.5);
+
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('3d-canvas'), antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.4;
+
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 5;
+            controls.maxDistance = 12;
+            controls.minPolarAngle = Math.PI / 4.5;
+            controls.maxPolarAngle = Math.PI / 2.1;
+            controls.target.set(0, 1.2, 0);
+            controls.enablePan = false;
+
+            // Lights - High intensity for visibility
+            ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
+            scene.add(ambientLight);
+
+            windowLight = new THREE.DirectionalLight(0xffffff, 2.0);
+            windowLight.position.set(-6, 6, 5);
+            windowLight.castShadow = true;
+            windowLight.shadow.mapSize.width = 1024;
+            windowLight.shadow.mapSize.height = 1024;
+            windowLight.shadow.bias = -0.0005;
+            windowLight.shadow.camera.left = -10;
+            windowLight.shadow.camera.right = 10;
+            windowLight.shadow.camera.top = 10;
+            windowLight.shadow.camera.bottom = -10;
+            scene.add(windowLight);
+
+            fillLight = new THREE.DirectionalLight(0xffffff, 1.2); // Stronger fill
+            fillLight.position.set(5, 3, 5);
+            scene.add(fillLight);
+
+            lampLight = new THREE.PointLight(0xffd700, 0, 5, 2);
+            lampLight.position.set(2.5, 1.5, 2);
+            scene.add(lampLight);
+
+            buildRoom();
+            buildBed();
+            buildWindow();
+            initScentParticles();
+
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function buildRoom() {
+            roomGroup = new THREE.Group();
+            floorMat = new THREE.MeshStandardMaterial({ color: 0x3A3A40, roughness: 0.8, metalness: 0.1 });
+            wallMat = new THREE.MeshStandardMaterial({ color: 0x484C52, roughness: 0.9 });
+            const woodMat = new THREE.MeshStandardMaterial({ color: 0x3A2C1E, roughness: 0.4, metalness: 0.2 });
+
+            const floor = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), floorMat);
+            floor.rotation.x = -Math.PI / 2;
+            floor.receiveShadow = true;
+            roomGroup.add(floor);
+
+            const backWall = new THREE.Mesh(new THREE.PlaneGeometry(30, 15), wallMat);
+            backWall.position.set(0, 7.5, -5);
+            backWall.receiveShadow = true;
+            roomGroup.add(backWall);
+
+            const sideWall = new THREE.Mesh(new THREE.PlaneGeometry(30, 15), wallMat);
+            sideWall.rotation.y = Math.PI / 2;
+            sideWall.position.set(-5, 7.5, 0);
+            roomGroup.add(sideWall);
+
+            const table = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1, 1.5), woodMat);
+            table.position.set(2.5, 0.5, 2);
+            table.castShadow = true;
+            table.receiveShadow = true;
+            roomGroup.add(table);
+
+            scene.add(roomGroup);
+        }
+
+        function buildBed() {
+            bedGroup = new THREE.Group();
+            baseMat = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.6, metalness: 0.1 });
+            mattressMat = new THREE.MeshStandardMaterial({ color: 0xF5F5F5, roughness: 0.9 });
+            duvetMat = new THREE.MeshStandardMaterial({ color: 0xE0E0E0, roughness: 1.0 });
+            const headboardMat = new THREE.MeshStandardMaterial({ color: 0x1A1A1A, roughness: 0.7 });
+            const runnerMat = new THREE.MeshStandardMaterial({ color: 0x3A2A1A, roughness: 0.8 });
+
+            const base = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.5, 4.4), baseMat);
+            base.position.y = 0.25;
+            base.castShadow = true;
+            base.receiveShadow = true;
+            bedGroup.add(base);
+
+            const headboard = new THREE.Mesh(new THREE.BoxGeometry(3.4, 2.5, 0.2), headboardMat);
+            headboard.position.set(0, 1.25, -2.3);
+            headboard.castShadow = true;
+            bedGroup.add(headboard);
+
+            const mattress = new THREE.Mesh(new THREE.BoxGeometry(3.0, 0.4, 4.0), mattressMat);
+            mattress.position.y = 0.7;
+            mattress.receiveShadow = true;
+            bedGroup.add(mattress);
+
+            const duvet = new THREE.Mesh(new THREE.BoxGeometry(3.1, 0.2, 3.2), duvetMat);
+            duvet.position.set(0, 1.0, 0.2);
+            duvet.castShadow = true;
+            bedGroup.add(duvet);
+
+            const fold = new THREE.Mesh(new THREE.BoxGeometry(3.1, 0.3, 0.6), duvetMat);
+            fold.position.set(0, 1.1, 1.6);
+            fold.castShadow = true;
+            bedGroup.add(fold);
+
+            const runner = new THREE.Mesh(new THREE.BoxGeometry(3.1, 0.05, 1.0), runnerMat);
+            runner.position.set(0, 1.13, 1.0);
+            runner.castShadow = true;
+            bedGroup.add(runner);
+
+            pillowGroup = new THREE.Group();
+            pillowGroup.position.set(0, 1.15, -1.4);
+            bedGroup.add(pillowGroup);
+
+            bedGroup.position.set(0, 0, 0.3);
+            scene.add(bedGroup);
+
+            updatePillowMesh();
+        }
+
+        function createPlushPillowGeometry(width, height, depth) {
+            const shape = new THREE.Shape();
+            const w = width / 2, h = height / 2, r = depth * 0.8;
+            shape.moveTo(-w + r, -h);
+            shape.lineTo(w - r, -h);
+            shape.quadraticCurveTo(w, -h, w, -h + r);
+            shape.lineTo(w, h - r);
+            shape.quadraticCurveTo(w, h, w - r, h);
+            shape.lineTo(-w + r, h);
+            shape.quadraticCurveTo(-w, h, -w, h - r);
+            shape.lineTo(-w, -h + r);
+            shape.quadraticCurveTo(-w, -h, -w + r, -h);
+
+            const extrudeSettings = {
+                depth: depth, bevelEnabled: true, bevelSegments: 8, steps: 1,
+                bevelSize: depth * 0.5, bevelThickness: depth * 0.5
+            };
+
+            const geo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+            geo.center();
+            geo.rotateX(Math.PI / 2);
+            return geo;
+        }
+
+        function buildWindow() {
+            const frameMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.5 });
+            const frame = new THREE.Mesh(new THREE.BoxGeometry(4, 2.5, 0.1), frameMat);
+            frame.position.set(-4.95, 3, 0);
+            frame.rotation.y = Math.PI / 2;
+            roomGroup.add(frame);
+
+            const winMat = new THREE.MeshBasicMaterial({ color: 0x87CEEB });
+            windowPlane = new THREE.Mesh(new THREE.PlaneGeometry(3.8, 2.3), winMat);
+            windowPlane.position.set(-4.9, 3, 0);
+            windowPlane.rotation.y = Math.PI / 2;
+            roomGroup.add(windowPlane);
+
+            lampGroup = new THREE.Group();
+            const lampBase = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 0.2, 32), new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.8, roughness: 0.2 }));
+            lampBase.position.set(2.5, 1.1, 2);
+            lampGroup.add(lampBase);
+            
+            const lampShadeMat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffaa00, emissiveIntensity: 0, side: THREE.DoubleSide });
+            const lampShade = new THREE.Mesh(new THREE.ConeGeometry(0.4, 0.6, 32, 1, true), lampShadeMat);
+            lampShade.position.set(2.5, 1.5, 2);
+            lampShade.userData.material = lampShadeMat;
+            lampGroup.add(lampShade);
+            roomGroup.add(lampGroup);
+
+            clockGroup = new THREE.Group();
+            const clockBase = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.3, 0.5), new THREE.MeshStandardMaterial({ color: 0x0A0A0A, roughness: 0.5 }));
+            const clockFace = new THREE.Mesh(new THREE.CircleGeometry(0.1, 32), new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0x550000, emissiveIntensity: 0.5 }));
+            clockFace.position.set(0, 0.05, 0.26);
+            clockGroup.add(clockBase, clockFace);
+            clockGroup.position.set(2.5, 1.15, 2);
+            clockGroup.visible = false;
+            roomGroup.add(clockGroup);
+        }
+
+        function initScentParticles() {
+            const particleCount = 300;
+            const positions = new Float32Array(particleCount * 3);
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 8;
+                positions[i * 3 + 1] = Math.random() * 5;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
+            }
+            const particleGeo = new THREE.BufferGeometry();
+            particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            scentMaterial = new THREE.PointsMaterial({
+                color: 0xffffff, size: 0.04, transparent: true, opacity: 0,
+                blending: THREE.AdditiveBlending, depthWrite: false
+            });
+            scentParticles = new THREE.Points(particleGeo, scentMaterial);
+            scene.add(scentParticles);
+        }
+
+        function updatePillowMesh() {
+            while(pillowGroup.children.length > 0) {
+                let obj = pillowGroup.children[0];
+                pillowGroup.remove(obj);
+                if (obj.geometry) obj.geometry.dispose();
+                if (obj.material) obj.material.dispose();
+            }
+
+            let pillowGeo, pillowMat;
+            const pillowDist = 0.75;
+
+            if (state.pillow === "Soft down") {
+                pillowGeo = createPlushPillowGeometry(1.4, 0.9, 0.25);
+                pillowMat = new THREE.MeshPhysicalMaterial({ color: 0xFFFFFF, roughness: 0.9, sheen: 1.0, sheenColor: 0xeeeeee });
+            } else if (state.pillow === "Firm support") {
+                pillowGeo = createPlushPillowGeometry(1.4, 0.9, 0.18);
+                pillowMat = new THREE.MeshStandardMaterial({ color: 0xF5F5F5, roughness: 0.8 });
+            } else if (state.pillow === "Neck contour") {
+                pillowGeo = new THREE.CylinderGeometry(0.35, 0.35, 1.2, 32);
+                pillowGeo.rotateZ(Math.PI / 2);
+                pillowGeo.translate(0, 0.35, 0);
+                pillowMat = new THREE.MeshStandardMaterial({ color: 0x2A2A2A, roughness: 0.6 });
+            } else if (state.pillow === "Cooling gel") {
+                pillowGeo = createPlushPillowGeometry(1.4, 0.9, 0.22);
+                pillowMat = new THREE.MeshPhysicalMaterial({ 
+                    color: 0x00CED1, emissive: 0x00AAAA, emissiveIntensity: 0.1,
+                    metalness: 0.1, roughness: 0.1, transmission: 0.8, thickness: 0.5, clearcoat: 1.0
+                });
+            }
+
+            const pillow1 = new THREE.Mesh(pillowGeo, pillowMat);
+            pillow1.position.x = -pillowDist;
+            pillow1.castShadow = true;
+            pillow1.receiveShadow = true;
+            pillowGroup.add(pillow1);
+
+            const pillow2 = new THREE.Mesh(pillowGeo, pillowMat);
+            pillow2.position.x = pillowDist;
+            pillow2.castShadow = true;
+            pillow2.receiveShadow = true;
+            pillowGroup.add(pillow2);
+        }
+
+        function updateLighting() {
+            let targetAmbient = 1.1;
+            let targetWindowColor = 0x87CEEB;
+            let targetLampIntensity = 0;
+            let targetLampEmissive = 0;
+            let targetLampColor = 0xffd700;
+            let targetFogColor = 0x1C222A;
+            let showLamp = false;
+            let showClock = false;
+
+            if (state.light === "Full blackout") {
+                targetAmbient = 0.5; // Keep it visible but moody
+                targetWindowColor = 0x1A1A1A;
+                targetFogColor = 0x14181C;
+            } else if (state.light === "A little light") {
+                targetAmbient = 0.9;
+                targetWindowColor = 0x4A6B8A;
+                targetLampIntensity = 1.2;
+                targetLampEmissive = 0.6;
+                targetFogColor = 0x2A3B4D;
+                showLamp = true;
+            } else if (state.light === "Sunrise light") {
+                targetAmbient = 1.4;
+                targetWindowColor = 0xFFB347;
+                targetLampIntensity = 3.0;
+                targetLampEmissive = 1.5;
+                targetLampColor = 0xFF4500;
+                targetFogColor = 0x4A3320;
+                showLamp = true;
+            } else if (state.light === "Alarm only") {
+                targetAmbient = 0.7;
+                targetWindowColor = 0x1A1A1A;
+                targetFogColor = 0x181C22;
+                showClock = true;
+            }
+
+            // Lerp lighting for smooth transition
+            ambientLight.intensity += (targetAmbient - ambientLight.intensity) * 0.1;
+            lampLight.intensity += (targetLampIntensity - lampLight.intensity) * 0.1;
+            lampLight.color.setHex(targetLampColor);
+            
+            const currentWinColor = new THREE.Color(windowPlane.material.color.getHex());
+            currentWinColor.lerp(new THREE.Color(targetWindowColor), 0.1);
+            windowPlane.material.color.copy(currentWinColor);
+
+            lampGroup.visible = showLamp;
+            clockGroup.visible = showClock;
+
+            if (showLamp) {
+                const lampShadeMat = lampGroup.children[1].userData.material;
+                lampShadeMat.emissiveIntensity += (targetLampEmissive - lampShadeMat.emissiveIntensity) * 0.1;
+                lampShadeMat.emissive.setHex(targetLampColor);
+            }
+
+            // Only update fog/bg if it's not overriding the theme manually
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                scene.fog.color.lerp(new THREE.Color(targetFogColor), 0.1);
+                scene.background.lerp(new THREE.Color(targetFogColor), 0.1);
+            } else {
+                scene.fog.color.lerp(new THREE.Color(0xF7F5F2), 0.1);
+                scene.background.lerp(new THREE.Color(0xF7F5F2), 0.1);
+            }
+        }
+
+        function updateTemperature() {
+            let targetFloorColor = new THREE.Color(0x3A3A40);
+            let targetWallColor = new THREE.Color(0x484C52);
+            let targetAmbientColor = new THREE.Color(0xffffff);
+
+            if (state.temp < 21) {
+                let t = (21 - state.temp) / 5;
+                targetFloorColor.lerp(new THREE.Color(0x2A4A5A), t);
+                targetWallColor.lerp(new THREE.Color(0x3A5A6A), t);
+                targetAmbientColor.lerp(new THREE.Color(0x4DA6B8), t);
+            } else if (state.temp > 21) {
+                let t = (state.temp - 21) / 5;
+                targetFloorColor.lerp(new THREE.Color(0x5A3A2A), t);
+                targetWallColor.lerp(new THREE.Color(0x6A4A3A), t);
+                targetAmbientColor.lerp(new THREE.Color(0xFFA500), t);
+            }
+
+            floorMat.color.lerp(targetFloorColor, 0.1);
+            wallMat.color.lerp(targetWallColor, 0.1);
+            ambientLight.color.lerp(targetAmbientColor, 0.1);
+        }
+
+        function updateScent() {
+            if (state.scent === "No fragrance") {
+                scentMaterial.opacity += (0 - scentMaterial.opacity) * 0.1;
+            } else {
+                const scentCard = document.querySelector(`[data-val="${state.scent}"]`);
+                const colorHex = parseInt(scentCard.dataset.color);
+                scentMaterial.color.setHex(colorHex);
+                scentMaterial.opacity += (0.6 - scentMaterial.opacity) * 0.1;
+            }
+        }
+
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+            controls.update();
+            updateLighting();
+            updateTemperature();
+            updateScent();
+
+            const positions = scentParticles.geometry.attributes.position.array;
+            for (let i = 0; i < positions.length; i += 3) {
+                positions[i + 1] += 0.005;
+                if (positions[i + 1] > 6) positions[i + 1] = 0;
+            }
+            scentParticles.geometry.attributes.position.needsUpdate = true;
+
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            const container = document.querySelector('.canvas-wrapper');
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        // --- UI Interactions ---
+
+        // Language Dropdown Logic
+        const langBtn = document.getElementById('langBtn');
+        const langMenu = document.getElementById('langMenu');
+        const currentLangSpan = document.getElementById('currentLang');
+
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', () => {
+            langMenu.classList.remove('active');
+        });
+
+        document.querySelectorAll('.lang-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                applyLang(item.dataset.lang);
+                langMenu.classList.remove('active');
+            });
+        });
+
+        function applyLang(lang) {
+            currentLang = lang;
+            const dict = i18n[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (dict[key]) {
+                    // Preserve HTML badges if they exist inside the element
+                    if (el.querySelector('.badge-premium')) {
+                        const badge = el.querySelector('.badge-premium').outerHTML;
+                        el.innerHTML = dict[key] + " " + badge;
+                    } else {
+                        el.innerHTML = dict[key]; // innerHTML to support spans in translation
+                    }
+                }
+            });
+            currentLangSpan.textContent = lang === 'en' ? 'ENG' : 'VIE';
+            checkProgress();
+            updateFragranceStory(state.scent);
+        }
+
+        // Theme Toggle Logic
+        document.getElementById('themeBtn').addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.getElementById('icon-moon').style.display = newTheme === 'dark' ? 'block' : 'none';
+            document.getElementById('icon-sun').style.display = newTheme === 'light' ? 'block' : 'none';
+            
+            // Update 3D scene background to match theme instantly
+            if (newTheme === 'light') {
+                scene.background = new THREE.Color(0xF7F5F2);
+                scene.fog.color = new THREE.Color(0xF7F5F2);
+            } else {
+                scene.background = new THREE.Color(0x1C222A);
+                scene.fog.color = new THREE.Color(0x1C222A);
+            }
+        });
+
+        // Form Options Logic
+        document.querySelectorAll('.options-grid').forEach(function(grp) {
+            var key = grp.dataset.group;
+            grp.querySelectorAll('.opt-card').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    grp.querySelectorAll('.opt-card').forEach(function(b) { b.classList.remove('selected'); });
+                    btn.classList.add('selected');
+                    state[key] = btn.dataset.val;
+                    
+                    if (key === 'pillow') updatePillowMesh();
+                    if (key === 'scent') updateFragranceStory(state.scent);
+                    if (key === 'sound') playSound(state.sound);
+                    
+                    checkProgress();
+                });
+            });
+        });
+
+        function updateFragranceStory(scent) {
+            var box = document.getElementById('story-box');
+            var title = document.getElementById('story-title');
+            var text = document.getElementById('story-text');
+            const dict = i18n[currentLang];
+            
+            let tKey, dKey;
+            if (scent === "Trầm Hương") { tKey = 'story_agar_t'; dKey = 'story_agar_d'; }
+            else if (scent === "Hòn Chống Breeze") { tKey = 'story_ocean_t'; dKey = 'story_ocean_d'; }
+            else if (scent === "Tháp Trầm Amber") { tKey = 'story_amber_t'; dKey = 'story_amber_d'; }
+            else if (scent === "No fragrance") { tKey = 'story_none_t'; dKey = 'story_none_d'; }
+
+            if (tKey && dict[tKey]) {
+                title.textContent = dict[tKey];
+                text.textContent = dict[dKey];
+                box.classList.add('active');
+            } else {
+                box.classList.remove('active');
+            }
+        }
+
+        document.getElementById('temp').addEventListener('input', function(e) {
+            state.temp = +e.target.value;
+            document.getElementById('tempval').textContent = e.target.value;
+        });
+
+        function checkProgress() {
+            var req = ['pillow', 'scent', 'sound', 'light'];
+            var done = req.filter(function(k) { return state[k] !== null; }).length;
+            const dict = i18n[currentLang];
+            const progressEl = document.getElementById('progress');
+            const numSpan = `<span style="color: var(--text)">${done}</span>`;
+            progressEl.innerHTML = `${numSpan} ${dict.sum_prog}`;
+            
+            const sendBtn = document.getElementById('send');
+            sendBtn.disabled = (done < 4);
+        }
+
+        document.getElementById('send').addEventListener('click', function() {
+            this.style.display = 'none';
+            document.getElementById('morning').classList.add('active');
+            const dict = i18n[currentLang];
+            document.getElementById('progress').textContent = dict.sum_title;
+        });
+
+        document.querySelectorAll('.star').forEach(function(s) {
+            s.addEventListener('click', function() {
+                var rating = +s.dataset.n;
+                document.querySelectorAll('.star').forEach(function(x) {
+                    x.classList.toggle('lit', +x.dataset.n <= rating);
+                });
+                var reply = document.getElementById('reply');
+                const dict = i18n[currentLang];
+                if (rating >= 4) reply.textContent = dict.morn_reply_high;
+                else reply.textContent = dict.morn_reply_low;
+            });
+        });
+
+        // Scroll Reveal Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Header border appear
+                    if (entry.target.id === 'configurator') {
+                        document.getElementById('header').classList.add('scrolled');
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Step Wizard Logic
+        let currentStep = 1;
+        const totalSteps = 4;
+        const stepBlocks = document.querySelectorAll('.section-block[data-step]');
+        const stepDots = document.querySelectorAll('.step-dot');
+        const stepBackBtn = document.getElementById('stepBack');
+        const stepNextBtn = document.getElementById('stepNext');
+
+        function renderStep() {
+            stepBlocks.forEach(function(block) {
+                block.classList.toggle('step-active', Number(block.dataset.step) === currentStep);
+            });
+            stepDots.forEach(function(dot) {
+                const n = Number(dot.dataset.step);
+                dot.classList.toggle('active', n === currentStep);
+                dot.classList.toggle('done', n < currentStep);
+            });
+            stepBackBtn.disabled = (currentStep === 1);
+            stepNextBtn.disabled = (currentStep === totalSteps);
+        }
+
+        stepBackBtn.addEventListener('click', function() {
+            if (currentStep > 1) { currentStep--; renderStep(); }
+        });
+        stepNextBtn.addEventListener('click', function() {
+            if (currentStep < totalSteps) { currentStep++; renderStep(); }
+        });
+        stepDots.forEach(function(dot) {
+            dot.addEventListener('click', function() {
+                currentStep = Number(dot.dataset.step);
+                renderStep();
+            });
+        });
+
+        renderStep();
+
+        // Initialize
+        applyLang('en');
+        updateFragranceStory(state.scent);
+    </script>
+</body>
+</html>
