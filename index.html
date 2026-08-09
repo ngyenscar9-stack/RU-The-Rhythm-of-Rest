@@ -134,20 +134,11 @@
         .step-dot.done { background-color: var(--gold-light); }
         .step-dot.active { background-color: var(--gold); transform: scale(1.6); }
 
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; grid-auto-flow: dense; }
-        .opt-card { border: none; border-bottom: 1px solid var(--border); padding: 28px; cursor: pointer; background-color: transparent; transition: background-color 0.7s var(--ease), border-color 0.7s var(--ease), transform 0.7s var(--ease), filter 0.7s var(--ease); position: relative; overflow: hidden; }
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .opt-card { border: none; border-bottom: 1px solid var(--border); padding: 24px 28px; cursor: pointer; background-color: transparent; transition: background-color 0.7s var(--ease), border-color 0.7s var(--ease), transform 0.7s var(--ease), filter 0.7s var(--ease); position: relative; overflow: hidden; }
         .opt-card:hover { background-color: var(--bg-alt); transform: scale(1.01); filter: brightness(1.08); }
         .opt-card.selected { border: 2px solid var(--gold); background-color: var(--accent-wash); }
         .opt-card.selected .opt-title { color: var(--gold); }
-        .opt-card.featured { grid-column: span 2; padding: 40px; background-size: cover; background-position: center; color: #F5F5F7; }
-        .opt-card.featured::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,8,6,0.75), rgba(10,8,6,0.35)); }
-        .opt-card.featured > * { position: relative; z-index: 1; }
-        .opt-card.featured .opt-title { font-size: clamp(1.3rem, 4vw, 1.7rem); margin-bottom: 14px; color: #F5F5F7; }
-        .opt-card.featured .opt-desc { color: rgba(245,245,247,0.85); max-width: 420px; }
-        .opt-card.featured.selected { border-color: var(--gold); }
-        .opt-card.featured.selected .opt-title { color: var(--gold-light); }
-        .opt-card[data-val="Trầm Hương"] { background-image: radial-gradient(ellipse at 30% 20%, #6b4326 0%, #3a2415 45%, #1a1008 100%); }
-        .opt-card[data-val="Sunrise light"] { background-image: url('https://images.unsplash.com/photo-1500534623283-312aade485b7?q=80&w=800&auto=format&fit=crop'); }
         .opt-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 8px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; row-gap: 4px; color: var(--text); transition: color 0.7s var(--ease); }
         .opt-vn { font-size: 0.65rem; color: var(--text-muted); font-style: italic; margin-bottom: 10px; display: block; text-transform: lowercase; }
         .opt-desc { font-size: 0.7rem; color: var(--text-muted); line-height: 1.6; }
@@ -210,17 +201,14 @@
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
         }
         @media (max-width: 600px) {
-            .options-grid { grid-template-columns: 1fr; }
             .form-panel { padding: 20px; }
             .header { padding: 14px 16px; }
             .brand { font-size: 1.15rem; }
             .nav-actions { gap: 8px; }
             .lang-btn { padding: 6px 10px; font-size: 0.62rem; }
             .btn-icon { width: 34px; height: 34px; }
-            .opt-card { padding: 20px; }
-            .opt-card.featured { padding: 28px; }
+            .opt-card { padding: 16px 20px; }
             .opt-title { font-size: 1.1rem; }
-            .opt-card.featured .opt-title { font-size: 1.35rem; }
         }
         @media (max-width: 380px) {
             .brand { font-size: 1rem; }
@@ -321,7 +309,7 @@
                     <div class="section-block" data-step="2">
                         <div class="section-header-mini"><span class="section-num">02</span><h3 class="section-title-mini" data-i18n="sec2_title">Aromatherapy & Scent</h3></div>
                         <div class="options-grid" data-group="scent">
-                            <div class="opt-card featured" data-val="Trầm Hương" data-color="0x8B4513">
+                            <div class="opt-card" data-val="Trầm Hương" data-color="0x8B4513">
                                 <div class="opt-title" data-i18n="s_agar_t">Agarwood <span class="badge-premium" data-i18n="s_agar_v">Suite</span></div>
                                 <span class="opt-vn">&nbsp;</span>
                                 <p class="opt-desc" data-i18n="s_agar_d">Warm, deep, and meditative.</p>
@@ -388,7 +376,7 @@
                                 <div class="opt-title" data-i18n="l_little_t">A Little Sky</div>
                                 <p class="opt-desc" data-i18n="l_little_d">Curtains parted to the moonlight.</p>
                             </div>
-                            <div class="opt-card featured" data-val="Sunrise light">
+                            <div class="opt-card" data-val="Sunrise light">
                                 <div class="opt-title" data-i18n="l_sun_t">Wake with Sunrise</div>
                                 <p class="opt-desc" data-i18n="l_sun_d">Lamp simulates dawn 20 mins before wake.</p>
                             </div>
