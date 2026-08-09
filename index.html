@@ -27,7 +27,7 @@
         :root { --ease: cubic-bezier(0.16, 1, 0.3, 1); }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
         body {
             background-color: var(--bg); color: var(--text); font-family: 'Jost', 'Be Vietnam Pro', sans-serif;
             font-weight: 300; line-height: 1.7; overflow-x: hidden;
@@ -45,7 +45,7 @@
             transition: border-color 0.3s ease, background 0.3s ease;
         }
         .header.scrolled { border-bottom-color: var(--border); }
-        .brand { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text); text-decoration: none; text-transform: uppercase; }
+        .brand { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text); text-decoration: none; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
         .brand span { color: var(--gold); font-style: italic; }
         
         .nav-actions { display: flex; gap: 16px; align-items: center; position: relative; }
@@ -142,16 +142,16 @@
         .opt-card.featured { grid-column: span 2; padding: 40px; background-size: cover; background-position: center; color: #F5F5F7; }
         .opt-card.featured::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,8,6,0.75), rgba(10,8,6,0.35)); }
         .opt-card.featured > * { position: relative; z-index: 1; }
-        .opt-card.featured .opt-title { font-size: 1.7rem; color: #F5F5F7; }
-        .opt-card.featured .opt-desc { color: rgba(245,245,247,0.8); }
+        .opt-card.featured .opt-title { font-size: clamp(1.3rem, 4vw, 1.7rem); margin-bottom: 14px; color: #F5F5F7; }
+        .opt-card.featured .opt-desc { color: rgba(245,245,247,0.85); max-width: 420px; }
         .opt-card.featured.selected { border-color: var(--gold); }
         .opt-card.featured.selected .opt-title { color: var(--gold-light); }
         .opt-card[data-val="Trầm Hương"] { background-image: radial-gradient(ellipse at 30% 20%, #6b4326 0%, #3a2415 45%, #1a1008 100%); }
         .opt-card[data-val="Sunrise light"] { background-image: url('https://images.unsplash.com/photo-1500534623283-312aade485b7?q=80&w=800&auto=format&fit=crop'); }
-        .opt-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 2px; display: flex; align-items: center; color: var(--text); transition: color 0.7s var(--ease); }
-        .opt-vn { font-size: 0.65rem; color: var(--text-muted); font-style: italic; margin-bottom: 6px; display: block; text-transform: lowercase; }
-        .opt-desc { font-size: 0.7rem; color: var(--text-muted); line-height: 1.5; }
-        .badge-premium { font-size: 0.45rem; text-transform: uppercase; letter-spacing: 0.15em; background: var(--gold); color: #000; padding: 2px 5px; border-radius: 2px; margin-left: 6px; vertical-align: middle; font-family: 'Jost', 'Be Vietnam Pro', sans-serif; font-weight: 600; }
+        .opt-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 8px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; row-gap: 4px; color: var(--text); transition: color 0.7s var(--ease); }
+        .opt-vn { font-size: 0.65rem; color: var(--text-muted); font-style: italic; margin-bottom: 10px; display: block; text-transform: lowercase; }
+        .opt-desc { font-size: 0.7rem; color: var(--text-muted); line-height: 1.6; }
+        .badge-premium { font-size: 0.45rem; text-transform: uppercase; letter-spacing: 0.15em; background: var(--gold); color: #000; padding: 3px 6px; border-radius: 2px; vertical-align: middle; font-family: 'Jost', 'Be Vietnam Pro', sans-serif; font-weight: 600; }
 
         .fragrance-story { margin-top: 16px; padding: 20px; background: var(--accent-wash); border-left: 2px solid var(--gold); border-radius: 0 4px 4px 0; display: none; animation: slideIn 0.8s var(--ease); }
         .fragrance-story.active { display: block; }
@@ -212,7 +212,20 @@
         @media (max-width: 600px) {
             .options-grid { grid-template-columns: 1fr; }
             .form-panel { padding: 20px; }
-            .header { padding: 16px; }
+            .header { padding: 14px 16px; }
+            .brand { font-size: 1.15rem; }
+            .nav-actions { gap: 8px; }
+            .lang-btn { padding: 6px 10px; font-size: 0.62rem; }
+            .btn-icon { width: 34px; height: 34px; }
+            .opt-card { padding: 20px; }
+            .opt-card.featured { padding: 28px; }
+            .opt-title { font-size: 1.1rem; }
+            .opt-card.featured .opt-title { font-size: 1.35rem; }
+        }
+        @media (max-width: 380px) {
+            .brand { font-size: 1rem; }
+            .lang-btn span { display: none; }
+            .lang-btn { padding: 8px; }
         }
     </style>
 </head>
